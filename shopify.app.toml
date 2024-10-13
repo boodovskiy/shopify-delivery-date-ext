@@ -1,0 +1,23 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "0a4071dea8272ac1a2af75b27e367296"
+name = "delivery-date-picker"
+handle = "delivery-date-picker-127"
+application_url = "https://example.com/"
+embedded = true
+
+[build]
+dev_store_url = "matilda-mama.myshopify.com"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = ""
+
+[auth]
+redirect_urls = [ "https://example.com/api/auth" ]
+
+[webhooks]
+api_version = "2024-10"
+
+[pos]
+embedded = false

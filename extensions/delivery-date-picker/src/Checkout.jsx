@@ -8,7 +8,9 @@ import {
   useApplyAttributeChange,
   useInstructions,
   useTranslate,
+  DatePicker,
 } from "@shopify/ui-extensions-react/checkout";
+import { useState } from "react";
 
 // 1. Choose an extension target
 export default reactExtension("purchase.checkout.shipping-option-list.render-after", () => (
@@ -20,6 +22,11 @@ function Extension() {
   const { extension } = useApi();
   const instructions = useInstructions();
   const applyAttributeChange = useApplyAttributeChange();
+
+  const [deliveryDate, setDeliveryDate] = useState("");
+  const handleDateChange = (date) => {
+    setDeliveryDate(date);
+  }
 
 
   // 2. Check instructions for feature availability, see https://shopify.dev/docs/api/checkout-ui-extensions/apis/cart-instructions for details
@@ -37,9 +44,10 @@ function Extension() {
   return (
     <BlockStack border={"dotted"} padding={"tight"}>
       <Banner title="delivery-date-picker">
-        {translate("welcome", {
-          target: <Text emphasis="italic">{extension.target}</Text>,
-        })}
+        <DatePicker 
+          selected={deliveryDate}
+          onChange={ handleDateChange }
+        />
       </Banner>
       <Checkbox onChange={onCheckboxChange}>
         {translate("iWouldLikeAFreeGiftWithMyOrder")}

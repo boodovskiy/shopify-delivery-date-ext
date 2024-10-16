@@ -1,14 +1,15 @@
 import {
-  reactExtension,
   Banner,
   BlockStack,
   Checkbox,
-  Text,
+  DatePicker,
+  reactExtension,
   useApi,
   useApplyAttributeChange,
+  useApplyMetafieldsChange,
   useInstructions,
-  useTranslate,
-  DatePicker,
+  useMetafield,
+  useTranslate
 } from "@shopify/ui-extensions-react/checkout";
 import { useState } from "react";
 
@@ -23,10 +24,15 @@ function Extension() {
   const instructions = useInstructions();
   const applyAttributeChange = useApplyAttributeChange();
 
-  const [deliveryDate, setDeliveryDate] = useState("");
+  const deliveryDate = useMetafield({
+    namespace: "details",
+    key: "date"
+  });
+
   const handleDateChange = (date) => {
     setDeliveryDate(date);
   }
+  const setDeliveryDate = useApplyMetafieldsChange();
 
 
   // 2. Check instructions for feature availability, see https://shopify.dev/docs/api/checkout-ui-extensions/apis/cart-instructions for details
@@ -45,8 +51,16 @@ function Extension() {
     <BlockStack border={"dotted"} padding={"tight"}>
       <Banner title="delivery-date-picker">
         <DatePicker 
-          selected={deliveryDate}
-          onChange={ handleDateChange }
+          selected={deliveryDate?.value}
+          onChange={ (value) =>{
+            setDeliveryDate({
+              type: "updateMetafield",
+              namespace: "details",
+              key: "date",
+              valueType: "string",
+              value,
+            });
+          }}
         />
       </Banner>
       <Checkbox onChange={onCheckboxChange}>

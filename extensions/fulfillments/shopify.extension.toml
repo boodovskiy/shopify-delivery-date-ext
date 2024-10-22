@@ -3,12 +3,12 @@
 
 # The version of APIs your extension will receive. Learn more:
 # https://shopify.dev/docs/api/usage/versioning
-api_version = "2024-10"
+api_version = "unstable"
 
 [[extensions]]
-name = "fulfillments"
-handle = "fulfillments"
 type = "ui_extension"
+name = "action-menu-extension-react"
+handle = "action-menu-extension-react"
 
 
 # Controls where in Shopify your extension will be injected,
@@ -16,8 +16,12 @@ type = "ui_extension"
 # https://shopify.dev/docs/api/customer-account-ui-extensions/unstable/extension-targets-overview
 
 [[extensions.targeting]]
-module = "./src/OrderStatusBlock.tsx"
-target = "customer-account.order-status.block.render"
+module = "./src/MenuActionExtension.tsx"
+target = "customer-account.order.action.menu-item.render"
+
+[[extensions.targeting]]
+module = "./src/MenuActionModalExtension.tsx"
+target = "customer-account.order.action.render"
 
 [extensions.capabilities]
 # Gives your extension access to directly query Shopify’s storefront API.

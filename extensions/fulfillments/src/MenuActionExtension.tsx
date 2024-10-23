@@ -7,6 +7,7 @@ import {
 export default reactExtension(
   "customer-account.order.action.menu-item.render",
   async (api) => {
+    console.log("test 1");
     const { orderId } = api;
     let hasFulfillments = false;
     try {
@@ -33,6 +34,7 @@ export default reactExtension(
       );
       const { data } = await result.json();
       hasFulfillments = data.order.fulfillments.nodes.length !== 0;
+      console.log(`${hasFulfillments}`, data);
     } catch (error) {
       console.log(error);
       hasFulfillments = false;
@@ -42,6 +44,7 @@ export default reactExtension(
 );
 
 function MenuActionExtension({ showAction }: { showAction: boolean }) {
+    console.log("test 2");
   if (!showAction) {
     return null;
   }
